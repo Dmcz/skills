@@ -6,7 +6,7 @@
 
 | Skill | 用途 | 目录 |
 | --- | --- | --- |
-| write-code-design | 编写或修订代码设计文档和技术 RFC。 | [write-code-design/](write-code-design/) |
+| write-code-design | 编写或修订代码设计文档和技术 RFC，按需整理结构、文件职责和层级。 | [write-code-design/](write-code-design/) |
 
 ## 公共编写约定
 

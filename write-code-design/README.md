@@ -2,7 +2,7 @@
 
 `write-code-design` 用于编写或修订代码设计文档和技术 RFC。目标是让工程师理解要改什么、为什么这样设计、有哪些后果，以及哪些问题仍需决定。
 
-文档深度随任务规模变化，具体架构和实现方式由需求、现有代码及项目约束决定。这一版集中明确格式优先级、决策依据和保存后的检查，并提供维护用的行为评测案例。
+文档深度随任务规模变化，具体架构和实现方式由需求、现有代码及项目约束决定。编写或实质修订时，按需要整理章节、文档文件职责和层级，并说明影响设计的代码组织；局部润色保持范围。配套行为评测案例用于检查实际选择、输出和文件操作。
 
 ## 文件与语言约定
 
@@ -23,7 +23,7 @@ write-code-design/
 | --- | --- | --- |
 | [SKILL.md](SKILL.md) | Agent，英文 | 适用场景、交付方式、核心流程、参考文件的读取时机。 |
 | [writing-style.md](references/writing-style.md) | Agent，英文 | 语义、措辞、术语和 Markdown 格式约束。 |
-| [design-guidelines.md](references/design-guidelines.md) | Agent，英文 | 设计依据、职责与交互、方案取舍、改动影响及验证要求；统一定义元数据字段、状态标签和依据标记。 |
+| [design-guidelines.md](references/design-guidelines.md) | Agent，英文 | 设计依据、文档结构与文件职责、职责与交互、方案取舍、改动影响及验证要求；统一定义组织判断、元数据字段、状态标签和依据标记。 |
 | [design-template.md](assets/design-template.md) | 文档作者与 Agent，中文 | 没有既定格式的新文档的起草模板，只展示格式，允许按任务裁剪。 |
 | [behavior-cases.md](evals/behavior-cases.md) | 维护者与评测者，英文；输入材料按场景使用中英文 | 触发和行为评测的请求、原始材料与通过标准；日常文档任务无需读取。 |
 | 本 README | 维护者，中文 | 解释 skill 的规则、使用方式与参考来源。 |
@@ -48,9 +48,19 @@ write-code-design/
 
 ### 遵循格式优先级
 
-用户明确要求优先于 skill 的默认规则；遵循适用的项目约定，并保留已有文档格式。没有指定或既定格式的新文档，才使用本 skill 的默认元数据和引用标记形式。
+用户明确要求优先于 skill 的默认规则；遵循适用的项目约定，并保留已有文档的格式惯例。没有指定或既定格式的新文档，才使用本 skill 的默认元数据和引用标记形式。
 
 窄范围编辑不顺带统一全文格式、补充元数据或移动状态标记。例如，已有 RFC 使用 `## [Accepted] Cancellation`，只润色段落时应保留这个标题及无关内容。
+
+### 按需要整理结构、文件职责和层级
+
+组织判断统一定义在 [design-guidelines.md](references/design-guidelines.md#document-structure-and-file-responsibilities)。新建文档、实质修订或整理相关设计文件时，检查章节和文件边界；重复、职责混杂、细节层次不一致或新增内容遮蔽关键决定时，可以在范围内调整。用户指定固定结构时遵循该要求，局部润色保持受影响的上下文。
+
+章节围绕读者需要理解和决定的问题组织；先说明问题和总体方案，再展开依赖这些内容的细节。多文件协作时说明各文件的读者、用途和范围，按需要区分总览、变更方案、共享契约、模块细节和历史决策。共享定义有权威位置，其他文件通过链接引用；冲突需要依据或明确待决事项，历史决定的来源与状态保留。
+
+总体设计解释系统边界和共享决定，局部设计说明所属模块及其如何满足共享约束。文档层级和代码架构分层分别服务于阅读与实现判断，层级数量按内容决定。小而完整的设计可以留在一个文件；职责、读者、复用或维护需要足以支持拆分时，再建立相关文件和导航。拆分超出交付范围时提出建议，讨论稿继续在对话中交付。
+
+结构调整后检查受影响的目录、导航、链接和锚点，以及要求、依据和决策状态是否完整保留。模板中的关联说明和职责表是可裁剪的示例，不增加固定章节或文件要求。
 
 ### 记录日期、文档状态和实现情况
 
@@ -100,6 +110,8 @@ write-code-design/
 
 说明哪个组件负责行为、持有状态或执行副作用，以及依赖方向和一条关键流程。文件拆分本身不代表职责已经清楚。抽象和分层需要解决当前的具体问题，并说明引入成本。
 
+代码组织影响设计时，把重要职责对应到实际或拟议的模块、文件、接口和依赖，说明现状与改动。架构分层说明各层职责及允许的依赖方向。现有文件职责混杂且影响本次改动时，可提出有理由和成本说明的局部拆分或迁移；遵循项目已有模式，保留无关代码组织。
+
 存在真实选择时，按相同标准比较可行方案，说明推荐理由、代价和局限；不凑方案数量。项目已有决定在窄范围修订中保持稳定，实质修改需要明确指出。
 
 ### 按改动规模补充细节
@@ -137,19 +149,23 @@ write-code-design/
 
 - `用 $write-code-design 为这个模块的状态管理重构起草中文设计文档，结合现有代码说明职责和取舍。`
 - `用 $write-code-design 修订这份 RFC，保留已有决定，补充接口兼容性和失败流程。`
+- `用 $write-code-design 整理 docs/design/ 中这组设计文档，明确总览、共享契约和模块设计的职责，更新受影响的链接，保留既有决定。`
 - `用 $write-code-design 把已确定的方案整理成文档，先在对话中给出草稿。`
 
 ## 参考来源与采用方式
 
-参考资料查阅于 2026-10-01。以下内容经过筛选并重新编写；这些链接是维护依据，不要求每次调用 skill 都联网读取。
+参考资料初次查阅于 2026-10-01；2026-10-03 对照 OpenAI 技能组织建议、doc-coauthoring、superpowers 的职责划分和 arc42 的分级说明补充文档组织规则。以下内容经过筛选并重新编写；这些链接是维护依据，不要求每次调用 skill 都联网读取，也不要求安装或调用这些技能。
 
 | 来源 | 本版采用的思路与取舍 |
 | --- | --- |
 | [OpenAI：Build skills](https://developers.openai.com/plugins/build/skills) | 以明确任务为边界，入口保持简洁，配套文件说明读取时机；用代表性请求检查触发和输出行为。 |
-| [OpenAI：Rethinking skills and prompts](https://learn.chatgpt.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra) | 按任务需要加载资料，减少无关流程约束，明确完成条件。 |
+| [OpenAI：skill-creator](https://github.com/openai/skills/blob/main/skills/.system/skill-creator/SKILL.md) | 借鉴入口、参考资料和模板的职责分工、按需读取及避免重复定义；转化为本技能的文档组织判断。 |
+| [OpenAI：Rethinking skills and prompts](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra) | 按任务需要加载资料，减少无关流程约束，明确完成条件。 |
 | [OpenAI：A practical guide to building agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) | 让动作、输出和不完整输入的处理方式清晰可检查。 |
-| [Anthropic：doc-coauthoring](https://github.com/anthropics/skills/blob/main/skills/doc-coauthoring/SKILL.md) | 借鉴上下文收集、逐步修订和读者视角检查；采用按需澄清和读者视角自查。 |
+| [Anthropic：doc-coauthoring](https://github.com/anthropics/skills/blob/main/skills/doc-coauthoring/SKILL.md) | 借鉴上下文收集、章节组织、逐步修订和全文衔接检查；采用按需澄清和读者视角自查。 |
 | [obra/superpowers：brainstorming](https://github.com/obra/superpowers/blob/main/skills/brainstorming/SKILL.md) | 借鉴现状调查、职责分析和方案取舍；交付停留在用户请求的文档任务范围。 |
+| [obra/superpowers：writing-plans](https://github.com/obra/superpowers/blob/main/skills/writing-plans/SKILL.md) | 借鉴模块、文件职责和接口的对应，以及遵循现有模式的局部组织改进；保留设计文档的交付范围，不引入实现任务流程。 |
+| [arc42：Building Block View](https://docs.arc42.org/section-5/) | 借鉴总体到重要模块的逐级展开，以及职责、接口和代码位置的对应；按相关性裁剪，不要求固定层数或完整架构模板。 |
 | [Malte Ubl：Design Docs at Google](https://www.industrialempathy.com/posts/design-docs-at-google/) | 借鉴设计理由、范围和替代方案的组织方式，并按任务规模调整深度。这是作者的经验文章。 |
 | [Google：文档写作指南摘要](https://developers.google.com/style/highlights) | 借鉴明确主体、条件位置和代码、列表、链接等格式约定，结合中文表达使用。 |
 | [markdownlint](https://github.com/DavidAnson/markdownlint) | 采用通用 Markdown 格式约定，检查时使用项目现有配置。 |
@@ -158,7 +174,7 @@ write-code-design/
 
 ## 后续维护
 
-行为评测案例见 [behavior-cases.md](evals/behavior-cases.md)。当前八个场景覆盖新文档保存、局部润色、仅讨论、已有英文格式、缺少源码、挑战旧决策、未确认的助手建议，以及直接修复代码时不触发。
+行为评测案例见 [behavior-cases.md](evals/behavior-cases.md)。当前十二个场景覆盖新文档保存、局部润色、仅讨论、已有英文格式、缺少源码、挑战旧决策、未确认的助手建议、直接修复代码时不触发，以及单文档结构整理、多文档职责与权威定义、代码职责与分层、受限范围内的结构修订。
 
 评测在明确请求时执行，每个案例使用新对话和独立临时工作区。执行者接收请求与原始材料，评测者保留通过标准；分别记录技能是否正确触发，以及实际输出、操作和文件差异是否符合要求。结构检查通过或读过案例，都不代表行为评测通过。
 

@@ -8,6 +8,18 @@ Describe the concrete behavior or limitation that motivates the change. Identify
 
 For a small change, a few connected paragraphs may cover the problem, proposed change, rationale, and verification. Expand a document when multiple components, shared contracts, or uncertain decisions need explanation. Link existing requirements instead of reproducing them.
 
+## Document structure and file responsibilities
+
+Review organization when drafting a new design, making a substantive revision, or organizing related design documents. Repeated content, mixed responsibilities, inconsistent detail levels, or growth that obscures a decision are reasons to adjust sections or file boundaries. Keep wording-only edits within their affected context. Honor a requested fixed outline or file layout and applicable project conventions.
+
+Order sections around what readers need to understand and decide. Establish the problem and overall approach before details that depend on them; place prerequisites before their consumers where useful. Read the headings together as an outline, give each section a clear purpose, and move or combine material whose placement obscures the reasoning. Preserve requirements, evidence, qualifications, and decision states when regrouping content.
+
+When several design files are involved, inspect their relevant entry point, contents, and inbound links before restructuring. Clarify each file's purpose, intended reader, and scope. Distinguish an overview, a change proposal, a shared contract, module details, and a historical decision record where those roles help readers. Select an authoritative location for shared definitions using project conventions and existing references; link to it from other files. Resolve conflicting definitions from evidence or record the unresolved decision instead of silently choosing one. Preserve the provenance and status of historical decisions.
+
+Choose detail levels by design scope. For a design spanning several components, explain their overall boundaries and shared decisions in the overview, then expand the relevant modules and their local behavior. Make the connection between an expanded detail and its parent design explicit. Keep essential context and reasoning in the overview so it remains understandable when details live elsewhere. Explain how local choices satisfy shared contracts, and surface a proposed change to such a contract at the scope it affects. Document hierarchy and architectural layers serve different purposes; neither needs a fixed number of levels or empty intermediate headings.
+
+Keep a small, cohesive design in one file. Split when distinct responsibilities, audiences, reusable contracts, or independent maintenance make separate files easier to use; length alone does not determine the split. Give the entry document a concise map of the related files and keep summaries distinct from authoritative definitions. Follow the requested delivery mode and file scope: propose any restructuring beyond that scope, and do not turn an inline discussion into saved files or a one-document edit into a repository-wide reorganization.
+
 ## Evidence and decision state
 
 Separate observations about existing code from the proposed design. Reference inspected source files or supplied documents for claims that drive the recommendation. Use repository-relative links in saved repository documents where practical; include line numbers only when checked and useful.
@@ -58,6 +70,8 @@ Describe who owns each significant behavior, state transition, or side effect. E
 
 Follow the relevant project conventions. Introduce an abstraction, service, protocol, or layer only when it solves a concrete problem in this design. Explain its responsibility and cost. Avoid expanding the task into unrelated cleanup.
 
+When code organization affects the design, map the important responsibilities to inspected or proposed modules and files. Explain what each owns, its relevant interfaces and dependencies, and what changes from the current organization. Choose boundaries around coherent behavior, state ownership, and change needs while following established project patterns. For architectural layers, describe what each layer owns and the permitted dependency direction. If a file's mixed responsibilities obstruct the requested change, include a targeted split or relocation with its reason and cost. Keep unaffected code organization out of scope and leave incidental file details open when they do not affect a decision.
+
 Trace a representative flow from trigger to result. Include inputs, important intermediate state, and output. Add failure, cancellation, repeated invocation, concurrent access, or cleanup behavior when those conditions materially change the outcome. State which component enforces an important invariant.
 
 Describe interfaces at the level needed to review the contract: meanings of inputs and outputs, ownership, failure behavior, and compatibility obligations. Use short signatures or examples if prose leaves a real ambiguity; link full definitions instead of duplicating implementation code.
@@ -81,5 +95,7 @@ Connect verification to the desired behavior and important invariants. Describe 
 ## Coherence check
 
 Check that the overview, detailed flow, interface examples, and any diagrams describe the same design. A reader should be able to locate the owner of a behavior and follow how information reaches it.
+
+After structural edits, check the affected outline, file navigation, links, and reference anchors. Confirm that shared definitions remain consistent and that moved content retains its requirements, evidence, and decision state. Update affected inbound links within scope; disclose any references that could not be checked or repaired.
 
 Keep implementation sequencing at the level needed to understand dependencies or migration. A design document need not become a task-by-task implementation plan. Remove background tutorials and duplicated information that do not affect the decision.
