@@ -1,6 +1,6 @@
 # Design content guidelines
 
-Use these criteria to decide what a document needs. Adapt them to the project and the requested change; they do not prescribe an architecture or require every topic in every document.
+Use these criteria for a working manuscript that develops or revises a proposed software design. The purpose, placement, reading role, and workflow boundary are defined in SKILL.md. Adapt detail to the project and request; these criteria do not prescribe an architecture or require every topic in every draft.
 
 ## Problem, outcome, and scope
 
@@ -32,7 +32,7 @@ When a project already records architecture decisions, preserve their status and
 
 This section defines the skill's default metadata, decision labels, and evidence annotations. Use their format for new documents without a requested or established convention. Preserve existing conventions during revisions, including status in headings when that is the document's convention. A narrow wording edit does not add metadata or relocate annotations.
 
-For a new standalone design document using this default, include its initial preparation date, latest substantive update date, document state, and implementation status near the title.
+For a new structured standalone manuscript using this default, include its initial preparation date, latest substantive update date, working-draft state, and implementation status near the title. Short drafts and source comments do not need this metadata structure unless requested or required by the project.
 
 Use these field names for the default format; translate them consistently for other document languages:
 
@@ -47,7 +47,7 @@ Use these field names for the default format; translate them consistently for ot
 
 Use ISO dates (`YYYY-MM-DD`). Record actual document events using the user's local date; do not copy example dates. Preserve the original preparation date during revisions, and update the revision date when the design, decisions, or substantive explanations change. If a historical date is unavailable, leave it out or identify it as unknown.
 
-Document state describes the document's purpose or review state, such as a design discussion record. Implementation status describes verified code progress: not implemented (`尚未实现`), partially implemented (`部分实现`), implemented (`已实现`), or unverified (`未核实`). Do not infer implementation status from a discussion, a recommendation, or the document's completion.
+Document state describes the document's purpose or review state, normally a working draft or proposal for discussion in this workflow. Confirmed baseline clauses inside it do not by themselves make the entire manuscript a formal reference. Implementation status describes verified code progress: not implemented (`尚未实现`), partially implemented (`部分实现`), implemented (`已实现`), or unverified (`未核实`). Do not infer implementation status from a discussion, a recommendation, or the document's completion.
 
 Use these decision labels, with their Chinese equivalents for Chinese output:
 

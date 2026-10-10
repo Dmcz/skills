@@ -1,12 +1,31 @@
 # Skills
 
-集中维护跨项目复用的个人 Agent Skills。具体任务、输出要求和平台依赖由各技能说明。
+集中维护跨项目复用的个人 Agent Skills 和项目 Agent 指令。具体任务、输出要求和平台依赖由各技能或指令文件说明。
 
 ## 技能目录
 
 | Skill | 用途 | 目录 |
 | --- | --- | --- |
-| write-code-design | 编写或修订代码设计文档和技术 RFC，按需整理结构、文件职责和层级。 | [write-code-design/](write-code-design/) |
+| draft-software-design | 围绕目标、约束、方案和未决问题编写或修订设计手稿，供讨论或关联施工参考，保存在设计区的 drafts/。 | [draft-software-design/](draft-software-design/) |
+| document-confirmed-design | 编写或维护已确认设计的正式说明，记录概念、数据关系、职责、契约和后续方向，不新增设计决定。 | [document-confirmed-design/](document-confirmed-design/) |
+
+## 项目 Agent 指令
+
+根目录的 [AGENTS.md](AGENTS.md) 用于维护本仓库；`agents/` 下的指令文件供实际项目通过软链或复制使用。当前提供 [Swift 项目指令](agents/swift/AGENTS.md)。
+
+在目标项目根目录选择一种方式，先将示例中的 `/path/to/skills` 替换为本仓库的实际路径：
+
+```bash
+# 软链：共享本仓库中的源文件
+ln -s /path/to/skills/agents/swift/AGENTS.md AGENTS.md
+
+# 复制：在目标项目中独立维护
+cp -i /path/to/skills/agents/swift/AGENTS.md AGENTS.md
+```
+
+通过软链编辑目标项目的 `AGENTS.md` 会修改这里的源文件；复制后的文件独立于源文件，后续更新由目标项目维护。
+
+指令中的设计索引、项目结构和应用架构引用面向目标项目，用于按需定位和理解相关内容，无需在本仓库中提供对应文档。项目业务约定由目标项目维护。
 
 ## 公共编写约定
 
@@ -23,8 +42,20 @@
 在 Codex 中，可以通过 `$技能名` 显式调用，例如：
 
 ```text
-用 $write-code-design 为当前模块起草设计文档，先在对话中给出草稿。
+用 $draft-software-design 为当前模块起草设计手稿，先在对话中给出方案和待讨论的问题。
 ```
+
+手稿与正式说明按用途分工，不按篇幅区分。手稿默认保存在项目设计区的 `drafts/`，只在明确关联的讨论、首次实现或施工任务中参考；正式文档用于查阅有效约定。实现时先理解相关代码，再核对涉及的正式约定；需求与已确认设计决定改动目标。目录描述用途，不意味着文件会自动删除。
+
+已有结论需要形成正式说明时，使用：
+
+```text
+用 $document-confirmed-design 把已确认的职责和数据关系整理成正式说明，不继续补设计。
+```
+
+普通工程问答和局部措辞修改不自动进入上述工作流。
+
+正式文档编写中，冲突影响有效约定应如何表述时，先提出具体问题，暂停受影响内容，澄清后再继续；材料已明确区分尚未实现的目标与当前行为时直接记录。具体边界见 [正式文档技能的澄清规则](document-confirmed-design/SKILL.md#clarify-conflicts-before-continuing)。
 
 创建或修改技能时，可以使用当前环境提供的 `$skill-creator`，说明任务、典型输入、期望输出和触发边界，并指定在本仓库中创建：
 

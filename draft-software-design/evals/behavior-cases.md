@@ -1,6 +1,6 @@
 # Behavior evaluation cases
 
-These cases are maintenance material for evaluating skill selection and observable behavior. They are not instructions to load during ordinary document work. Run them when behavioral evaluation is requested and within the authorized environment; reading this file or passing structural validation is not a behavioral test.
+These cases are maintenance material for evaluating working-draft selection and observable behavior, including its boundary with the formal-record workflow. They are not instructions to load during ordinary document work. Run them when behavioral evaluation is requested and within the authorized environment; reading this file or passing structural validation is not a behavioral test.
 
 ## Evaluation method
 
@@ -8,6 +8,7 @@ These cases are maintenance material for evaluating skill selection and observab
 - For selection checks, expose the skill's name and description through normal discovery. Do not force invocation for cases without an explicit skill name, especially the negative case. Record whether the skill was selected separately from output quality.
 - Give the executing model the user request and raw artifacts, not the expected results or earlier review conclusions. The evaluator uses the criteria below after the run. A human evaluator or an independent model can assess the result; delegation is not required by this file.
 - Inspect the actual answer, actions, saved artifacts, and differences from the input. Judge meaning, evidence, scope, and delivery rather than matching generated wording or requiring a fixed section count.
+- Keep each case focused on one observable boundary. Use minimal artifacts and concise expectations; reuse an existing fixture when it preserves the case's meaning.
 - Record the skill revision, model and configuration, case ID, observed selection, actions, artifact locations, result, and evidence for any failure. Use pass, fail, or not run; report an unavailable capability as a limitation. A pass in one case does not establish performance in the others.
 - Do not build the sample project, run its tests, install tools, or perform Git or external-service actions. The requests below need only reading, drafting, and authorized document or code edits in the disposable workspace.
 
@@ -29,13 +30,13 @@ class Cache:
 
 User request:
 
-> 用 $write-code-design 为这个缓存增加 invalidate(key) 起草中文设计文档，保存到 docs/cache-invalidation.md。删除不存在的键应当没有副作用。只写设计，不修改代码。
+> 用 $draft-software-design 为这个缓存增加 invalidate(key) 起草中文设计文档，保存到 docs/cache-invalidation.md。删除不存在的键应当没有副作用。只写设计，不修改代码。
 
 Expected results:
 
 - Select the skill and inspect the supplied code before describing current behavior. Distinguish the existing `get` and `put` methods from the proposed `invalidate` method.
 - Explain the ownership, invalidation behavior, and meaningful verification scenarios, including an absent key. Treat additional interface choices as proposals unless the request establishes them.
-- Save the document at the requested path, inspect its final contents, and provide a usable link. For this new document with no established format, use accurate local dates and separate document state from implementation status.
+- Save the document at the requested path, inspect its final contents, and provide a usable link. For this structured new manuscript with no established format, use accurate local dates, make its working-draft purpose clear, and separate document state from implementation status. Honor the explicit path rather than moving it into drafts/.
 - Leave `cache.py` unchanged. Do not claim that the proposed checks ran or that the implementation exists.
 
 ## B02: Narrow wording edit with existing status headings
@@ -58,11 +59,11 @@ The Repository owns the cache.
 
 User request:
 
-> 用 $write-code-design 只润色 docs/cache-rfc.md 的 Cancellation 段落，保持英文，保留所有技术条件和既有格式。
+> 用 $draft-software-design 只润色 docs/cache-rfc.md 的 Cancellation 段落，保持英文，保留所有技术条件和既有格式。
 
 Expected results:
 
-- Preserve the timing condition, the worker's responsibility, and the distinction between a pending and a persisted result.
+- Honor this explicit skill invocation as a narrow edit; it is not an automatic-selection positive for editing accepted records. Preserve the timing condition, the worker's responsibility, and the distinction between a pending and a persisted result.
 - Keep both status headings, the date, and the Ownership section unchanged. Do not add default metadata, translate the document, or relocate status annotations.
 - Inspect the saved difference or compare the affected context with the original. Report only the actual edit and checks performed. Leaving already-clear wording unchanged with an explanation is acceptable.
 
@@ -72,7 +73,7 @@ Input artifact: the `cache.py` supplied in B01.
 
 User request:
 
-> 用 $write-code-design 先讨论手动失效和 TTL 对这个缓存的取舍，在对话中给出建议，暂时不保存，也不实现。
+> 用 $draft-software-design 先讨论手动失效和 TTL 对这个缓存的取舍，在对话中给出建议，暂时不保存，也不实现。
 
 Expected results:
 
@@ -157,7 +158,7 @@ Input material supplied with the request:
 
 User request:
 
-> 用 $write-code-design 把这段材料整理成简短中文设计草稿，先在对话中给出，区分建议和已确认事项。
+> 用 $draft-software-design 把这段材料整理成简短中文设计草稿，先在对话中给出，区分建议和已确认事项。
 
 Expected results:
 
@@ -184,7 +185,7 @@ User request:
 
 Expected results:
 
-- Do not select `write-code-design` merely because the request changes code. Make the requested small code correction through the normal coding workflow.
+- Do not select `draft-software-design` merely because the request changes code. Make the requested small code correction through the normal coding workflow.
 - Do not replace the fix with a design discussion, create an RFC, or introduce design-stage approval gates.
 - Preserve unrelated code. A successful code fix does not excuse an incorrect skill selection; record both outcomes.
 
@@ -238,7 +239,7 @@ Input artifact: `docs/README.md`.
 
 User request:
 
-> 用 $write-code-design 整理 docs/cancellation.md 的章节，把问题、总体方案和局部规则组织清楚，合并重复说明。可以调整标题和顺序；如改动锚点，同步修复 docs/README.md。保留已有决定和未决事项，只改文档。
+> 用 $draft-software-design 整理 docs/cancellation.md 的章节，把问题、总体方案和局部规则组织清楚，合并重复说明。可以调整标题和顺序；如改动锚点，同步修复 docs/README.md。保留已有决定和未决事项，只改文档。
 
 Expected results:
 
@@ -305,7 +306,7 @@ User request:
 
 Expected results:
 
-- Select the skill through normal discovery and inspect the relevant entry point, all four files, and their links before editing. The request itself supplies enough scope to proceed with ordinary organizational choices.
+- Select document-confirmed-design through normal discovery rather than the working-draft skill: this request maintains an existing reference without reconsidering its design. Inspect the relevant entry point, all four files, and their links before editing. The request itself supplies enough scope to proceed with ordinary organizational choices.
 - Keep `contracts.md` authoritative based on the inspected entry document. Replace the redundant contract definition in the Worker design with a usable link while retaining its distinct proposed sequencing requirement and its state.
 - Make the overview useful for navigation and retain enough overall context to explain how Worker and Repository relate. Make the connection between the Worker details and the shared contract understandable.
 - Preserve the ADR's accepted status, date, ownership decision, and rationale as history. Do not convert it into a current task list or delete it as a duplicate. Distinguish document roles without requiring extra empty files or levels.
@@ -343,7 +344,7 @@ def main(database_path):
 
 User request:
 
-> 用 $write-code-design 为这个 Worker 起草重构设计，保存到 docs/worker-design.md。后续命令行和后台入口都需要复用任务解析；测试中需要替换 SQLite 存储。说明拟议模块或文件分别负责什么、接口如何衔接及允许的依赖方向，保持当前写入后返回任务 ID 的行为。只写设计，不改代码，不引入新框架。
+> 用 $draft-software-design 为这个 Worker 起草重构设计，保存到 docs/worker-design.md。后续命令行和后台入口都需要复用任务解析；测试中需要替换 SQLite 存储。说明拟议模块或文件分别负责什么、接口如何衔接及允许的依赖方向，保持当前写入后返回任务 ID 的行为。只写设计，不改代码，不引入新框架。
 
 Expected results:
 
@@ -387,7 +388,7 @@ Input artifact: `docs/README.md`.
 
 User request:
 
-> 用 $write-code-design 整理 docs/worker-rfc.md 的内容归属，让现状、方案和后果更清楚，但保持英文、三个章节标题及顺序，只修改这个文件，不新增或拆分文件。这是待评审方案。
+> 用 $draft-software-design 整理 docs/worker-rfc.md 的内容归属，让现状、方案和后果更清楚，但保持英文、三个章节标题及顺序，只修改这个文件，不新增或拆分文件。这是待评审方案。
 
 Expected results:
 
@@ -395,3 +396,95 @@ Expected results:
 - Preserve the return-after-write requirement, proposed shared parsing and replaceable storage, undecided interface, and Draft status. Do not add the skill's default metadata or present the design as accepted.
 - Leave `docs/README.md` and its link unchanged and valid. Do not create extra document levels, split files, restructure code, or require routine approval to make these authorized edits.
 - Inspect the saved difference and report actual changes and checks. A structural revision is successful only if the meaning and scoped artifacts are preserved, not merely because the outline looks tidy.
+
+## B13: Ordinary engineering discussion without a manuscript request
+
+Input material: the cache from B01.
+
+User request:
+
+> 这个缓存由 Repository 持有还是 Worker 持有更合理？先聊一下，不用写设计稿。
+
+Expected results:
+
+- Answer the engineering question from the code and relevant constraints without automatically selecting either document workflow.
+- Do not load the manuscript template, create files, or describe a recommendation as accepted.
+- Preserve the user's discussion-only scope.
+
+## B14: Save a manuscript without a specified filename
+
+Input material: a project uses docs/design/ for design documentation; no draft directory exists yet.
+
+User request:
+
+> 用 $draft-software-design 给缓存失效方案写一份讨论手稿并保存。先描述目标、两种方案及未决问题，不改代码。
+
+Expected results:
+
+- Save the requested manuscript under docs/design/drafts/ with a meaningful filename, subject to applicable project layout instructions.
+- Make its discussion role clear and retain unresolved choices. Do not publish it as the formal cache contract or modify a formal-documentation index unless authorized.
+- Do not treat drafts/ as an automatic deletion policy or make code changes.
+- Inspect saved content and report only checks actually performed.
+
+## B15: Confirmed design becomes a formal reference
+
+Input material:
+
+> 已确认：Repository 是缓存的唯一所有者；Worker 只通过接口访问。
+> 用户已经选定按 key 手动失效，不做 TTL。invalidate(key) 对不存在的 key 没有副作用。
+> 当前代码只有 get/put，invalidate 尚未实现。
+
+User request:
+
+> 把这些已确定的约定整理成正式设计说明，保存到 docs/design/cache.md。不要再补方案。
+
+Expected results:
+
+- Select document-confirmed-design rather than draft-software-design, even if the formal reference needs detailed interface explanation.
+- State confirmed ownership and invalidation semantics, distinguish the unimplemented target from current code, and do not add TTL, alternate ownership, or extra execution protocols.
+- Save at the requested formal path and leave any working manuscripts and code unchanged.
+- Preserve explicit guarantees without expanding the record into a new design exercise.
+
+## B16: Routine wording edits and explicit invocation
+
+Input artifact: the accepted `docs/cache-rfc.md` supplied in B02. Run each variant in a fresh conversation with the unchanged input.
+
+| Variant | User request | Expected selection |
+| --- | --- | --- |
+| Automatic | 只润色 docs/cache-rfc.md 的 Cancellation 段落，保持英文、技术条件和既有格式，只改这个段落。 | Neither design workflow. |
+| Explicit | 用 $document-confirmed-design 只润色 docs/cache-rfc.md 的 Cancellation 段落，保持英文、技术条件和既有格式，只改这个段落。 | Honor document-confirmed-design. |
+
+Expected results for both variants:
+
+- Preserve the timing condition, worker ownership, and pending/persisted distinction; leave headings, date, and Ownership unchanged. An already-clear paragraph may remain unchanged with an explanation.
+- Keep the task to the requested paragraph: no new design decisions, metadata, file moves, or implementation. Inspect any saved edit and report only actual changes and checks.
+
+## B17: External API evidence affects proposal feasibility
+
+Input artifact: `vendor/taskkit-2.4/task.pyi`. This is an authoritative SDK declaration fixture for the fictitious TaskKit 2.4; evaluate only the supplied material, without external services.
+
+```python
+class Task:
+    def cancel(self) -> None:
+        """Request cancellation. The task may continue running after return.
+        This method does not wait for pending writes to finish.
+        """
+        ...
+```
+
+Supplied material:
+
+> 目标版本是 TaskKit 2.4。希望调用方能知道取消何时收敛，避免把取消请求已发出误认为写入已经停止。
+> 尚未提供完成通知或等待任务结束接口的资料，也没有选定实现方案。
+
+User request:
+
+> 用 $draft-software-design 先讨论仅调用 cancel() 和结合完成通知的取舍，核对影响方案可行性的 SDK 能力，在对话中给出手稿。无法核实的部分保留为假设，不保存、不实现。
+
+Expected results:
+
+- Inspect the supplied declaration before evaluating the alternatives. Use its version-specific semantics to explain that `cancel()` returning does not establish that execution or pending writes have stopped.
+- Treat the availability and semantics of completion notification as unverified. Explain how that evidence gap conditions the second option's feasibility; do not invent an SDK method or claim the missing capability is definitely absent.
+- Judge whether key facts were checked from the actual inspection actions and whether the explanation correctly applies the supplied TaskKit 2.4 declaration. This short inline manuscript may omit a source citation and explicit version label; that omission alone is not a failure. Any source references or version claims it includes must be accurate.
+- Keep the design choice unconfirmed and avoid unrelated SDK research or runtime-success claims.
+- Respond inline without writing files, implementing cancellation, or using external services.
