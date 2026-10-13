@@ -6,14 +6,40 @@
 
 | Skill | 用途 | 目录 |
 | --- | --- | --- |
-| draft-software-design | 围绕目标、约束、方案和未决问题编写或修订设计手稿，供讨论或关联施工参考，保存在设计区的 drafts/。 | [draft-software-design/](draft-software-design/) |
+| code-design-and-implementation | 围绕行为、职责、接口、并发和生命周期进行只读代码分析、设计讨论、代码审查及已确认方案的实现；普通语法解释、纯措辞或格式编辑、拼写、简单命名、简单说明注释和机械修改不触发，需要判断行为或契约的注释任务仍触发。审查仅静态只读；组合审查与修复或运行验证的请求先按通用规则确认本轮任务类型。 | [code-design-and-implementation/](code-design-and-implementation/) |
+| draft-software-design | 用于明确要求起草或修订的软件设计手稿、RFC 或提案文档，可在聊天中交付；普通代码分析和方案讨论不触发，聊天起草不自动授权保存。 | [draft-software-design/](draft-software-design/) |
 | document-confirmed-design | 编写或维护已确认设计的正式说明，记录概念、数据关系、职责、契约和后续方向，不新增设计决定。 | [document-confirmed-design/](document-confirmed-design/) |
 
-## 项目 Agent 指令
+## Agent 指令
 
-根目录的 [AGENTS.md](AGENTS.md) 用于维护本仓库；`agents/` 下的指令文件供实际项目通过软链或复制使用。当前提供 [Swift 项目指令](agents/swift/AGENTS.md)。
+根目录的 [AGENTS.md](AGENTS.md) 用于维护本仓库；`agents/` 下提供两层可复用指令：
 
-在目标项目根目录选择一种方式，先将示例中的 `/path/to/skills` 替换为本仓库的实际路径：
+- [通用指令](agents/AGENTS.md)：跨项目的个人默认约定，包括授权范围、沟通与决策、证据使用、技能选择和验证结果报告，安装到 Codex 的全局指令位置。
+- [Swift 项目指令](agents/swift/AGENTS.md)：目标项目的文档布局、Swift 工程约定、UI 文案、视觉审查和验证限制，安装到目标项目根目录。
+
+Codex 先加载全局指令，再加载从目标项目根目录到当前工作目录的项目指令；项目中的更具体约定覆盖冲突的全局约定。Swift 项目指令与通用指令配合使用：只复制或软链 Swift 文件到目标项目，不会自动加载本仓库中的 `agents/AGENTS.md`。
+
+以下示例中的 `/path/to/skills` 均需替换为本仓库的实际路径。
+
+### 安装通用指令
+
+以下示例使用默认的 Codex 全局目录 `~/.codex`；如果设置了 `CODEX_HOME`，请将该目录替换为其实际路径。先创建目录，再选择软链或复制中的一种方式：
+
+```bash
+mkdir -p ~/.codex
+
+# 软链：共享本仓库中的通用指令
+ln -s /path/to/skills/agents/AGENTS.md ~/.codex/AGENTS.md
+
+# 复制：独立维护全局指令
+cp -i /path/to/skills/agents/AGENTS.md ~/.codex/AGENTS.md
+```
+
+如果已有全局 `AGENTS.md`，先检查并合并需要保留的约定。全局目录中的非空 `AGENTS.override.md` 会优先于 `AGENTS.md` 加载。安装后启动新的 Codex 会话，使指令重新加载。
+
+### 安装 Swift 项目指令
+
+安装通用指令后，在目标 Swift 项目根目录选择一种方式；如果已有项目 `AGENTS.md`，先检查并合并项目原有约定：
 
 ```bash
 # 软链：共享本仓库中的源文件
@@ -23,7 +49,7 @@ ln -s /path/to/skills/agents/swift/AGENTS.md AGENTS.md
 cp -i /path/to/skills/agents/swift/AGENTS.md AGENTS.md
 ```
 
-通过软链编辑目标项目的 `AGENTS.md` 会修改这里的源文件；复制后的文件独立于源文件，后续更新由目标项目维护。
+两层指令都遵循相同的维护方式：通过软链编辑安装位置的 `AGENTS.md` 会修改本仓库中的对应源文件；复制后的文件独立于源文件，后续更新由使用方维护。
 
 指令中的设计索引、项目结构和应用架构引用面向目标项目，用于按需定位和理解相关内容，无需在本仓库中提供对应文档。项目业务约定由目标项目维护。
 
@@ -45,7 +71,7 @@ cp -i /path/to/skills/agents/swift/AGENTS.md AGENTS.md
 用 $draft-software-design 为当前模块起草设计手稿，先在对话中给出方案和待讨论的问题。
 ```
 
-手稿与正式说明按用途分工，不按篇幅区分。手稿默认保存在项目设计区的 `drafts/`，只在明确关联的讨论、首次实现或施工任务中参考；正式文档用于查阅有效约定。实现时先理解相关代码，再核对涉及的正式约定；需求与已确认设计决定改动目标。目录描述用途，不意味着文件会自动删除。
+工作流按用户要求的产物区分：普通代码分析和方案讨论按适用范围使用 `code-design-and-implementation`；明确要求起草或修订设计手稿、RFC 或提案文档时使用 `draft-software-design`。手稿可以先在聊天中交付，起草不自动授权保存文件；已授权保存且没有指定路径时，放在项目设计区的 `drafts/`。手稿只在明确关联的讨论、首次实现或施工任务中参考；正式文档用于查阅有效约定，二者按用途而非篇幅区分。写手稿所需的代码阅读属于该文稿任务，不因此自动叠加代码工作流。实现时先理解相关代码，再核对涉及的正式约定；需求与已确认设计决定改动目标。目录描述用途，不意味着文件会自动删除。
 
 已有结论需要形成正式说明时，使用：
 

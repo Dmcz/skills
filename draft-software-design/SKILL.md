@@ -1,6 +1,6 @@
 ---
 name: draft-software-design
-description: Draft or revise working manuscripts for proposed software designs, architecture changes, and technical RFCs. Use when the user asks for a design manuscript, a proposal to discuss, or analysis of goals, constraints, options, and unresolved choices. Do not use for publishing settled design agreements, ordinary engineering questions, or routine wording edits.
+description: Draft or revise explicitly requested working software-design manuscripts, RFCs, or design proposal documents, including inline drafts. Do not trigger for ordinary code analysis or option discussion without a manuscript request, confirmed design references, or routine wording edits.
 ---
 
 # Draft software design
@@ -11,7 +11,7 @@ Produce a working manuscript that helps engineers discuss a change and decide ho
 
 This workflow develops a design for discussion. Writing a draft does not make its proposals accepted, turn it into a formal reference, or authorize implementation. Preserve accepted agreements as the baseline; identify proposed changes to them explicitly.
 
-Publishing or maintaining confirmed design documentation is a separate workflow. Ordinary engineering discussion and small wording edits do not require a design-manuscript workflow. Honor an explicit invocation or delivery instruction without expanding the task merely to fit this skill.
+Publishing or maintaining confirmed design documentation is a separate workflow. Select this workflow for a requested manuscript, RFC, or design proposal document, including an inline draft or revision of an existing manuscript. Ordinary code analysis and option discussion without a manuscript request do not require it; discussing goals or constraints alone does not imply a manuscript deliverable. Use the appropriate code workflow for such tasks when available and applicable. Do not ask whether to write a manuscript merely because the discussion involves design. This workflow already includes the code inspection and option analysis needed for its manuscript; those supporting steps do not by themselves require another workflow. Honor an explicit invocation or delivery instruction within its requested scope without manufacturing a manuscript requirement.
 
 When saving a new manuscript without a specified path, use a `drafts/` directory within the project's design-documentation area, for example `docs/design/drafts/`. Explicit destinations and applicable project layout take precedence. Keep an existing file in place unless moving it is authorized. The directory describes the artifact's role, not a deletion policy.
 
@@ -44,6 +44,6 @@ A short, clear proposal can use this entrypoint without loading every reference.
 
 Check that the target, reasoning, ownership, important conditions, and unresolved choices are coherent and supported. Keep confirmed design separate from verified implementation progress. Remove accidental template scaffolding and unrelated material.
 
-During discussion, respond inline. Save only when requested or already authorized, and inspect the saved content or diff. Do not silently promote a draft, overwrite a formal contract with an unaccepted proposal, move existing files, or implement the proposed change.
+An inline draft can be a complete deliverable. Drafting in chat or choosing this workflow does not by itself authorize saving files. Save only when the current task requests or authorizes file output, and inspect any saved content or diff. Do not silently promote a draft, overwrite a formal contract with an unaccepted proposal, move existing files, or implement the proposed change.
 
 Report the requested draft, a usable link when saved, and the actual checks and remaining limits. Planned verification is not evidence that tests ran or that implementation exists.
