@@ -31,6 +31,25 @@ Expand interfaces, failure behavior, concurrency, lifecycle, migration, and veri
 
 Write in Chinese by default unless the request or existing artifact establishes another language. Preserve identifiers and existing useful format conventions. For a new manuscript, make its working-draft purpose clear; distinguish current facts, proposals, and accepted baseline agreements without labeling every paragraph.
 
+## Cross-references and change impact
+
+- Keep the document understandable within its own scope. Maintain detailed definitions in one primary source per topic; state the boundary this document relies on without mirroring another document's internal structure, detailed rules, or progress.
+- Add body links where the reader needs a specific external contract, evidence, or background, and make that purpose clear in the sentence. Use an existing index for broad navigation.
+- Record document-level state and implementation progress centrally in the source document and, when useful, its existing index. Avoid routinely copying these mutable facts into inbound link labels or summaries; note a limitation at the point of use only when it affects interpretation.
+- State the accepted baseline needed for the proposal and preserve its confirmation basis. Linking another draft or deprecated record does not establish agreement; keep proposed changes distinct from effective contracts.
+- Prefer stable document paths or contract sections. Reciprocal navigation is acceptable when each document owns its definitions; do not pass a key definition around a reference cycle.
+- Read only the linked material needed for the task. A cross-reference does not require reading the whole target document or recursively following its links.
+
+Maintain related documents according to actual impact, within the authorized scope:
+
+- Wording, internal details, or progress updates normally affect only the edited document.
+- When a path or referenced anchor changes, repair the directly affected links.
+- When an effective contract changes or is retired, check the documents that actually depend on it and update affected statements. Report needed changes outside the authorized file scope instead of expanding the task.
+
+Write project-local document links relative to the document being edited; crossing directory levels is valid. Avoid machine-specific absolute paths and local targets outside the project.
+
+Link to external material only when it provides a key basis for the design or the user explicitly requests it; do not add it as routine navigation.
+
 ## References when needed
 
 - Before drafting a new structured standalone manuscript using this skill's default format, read the [metadata rules](references/design-guidelines.md#document-metadata-and-annotations). Keep requested or established formats during revisions; this new-manuscript requirement does not add metadata to existing manuscripts or short inline drafts.
