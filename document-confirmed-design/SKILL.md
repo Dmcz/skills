@@ -34,7 +34,7 @@ Verify external API or platform facts used as design evidence against authoritat
 
 Write in Chinese by default unless the request or existing artifact establishes another language. Preserve identifiers and terminology. State the data relationships and component responsibilities directly.
 
-Follow the requested format and useful existing conventions. Short records do not need full-specification scaffolding; detailed accepted designs may need more explanation. Do not add dates, status taxonomies, fixed sections, examples, or checklists by default. Mark approval and implementation status only as needed to preserve meaning.
+Follow the requested format and useful conventions of the target artifact. For a new reference, choose an outline for its design questions rather than inheriting the source material's structure. Use tables for concise comparisons or lookups across shared dimensions, and connected prose for relationships, guarantees, and rationale; do not default to one row per type or method. Short records do not need full-specification scaffolding; detailed accepted designs may need more explanation. Do not add dates, status taxonomies, fixed sections, examples, or checklists by default.
 
 Save only when requested or already authorized, and update only the requested artifact. Preparing a formal reference does not confer new approval or authorize implementation.
 
@@ -42,7 +42,7 @@ Save only when requested or already authorized, and update only the requested ar
 
 - Keep the document understandable within its own scope. Maintain detailed definitions in one primary source per topic; state the boundary this document relies on without mirroring another document's internal structure, detailed rules, or progress.
 - Add body links where the reader needs a specific external contract, evidence, or background, and make that purpose clear in the sentence. Use an existing index for broad navigation.
-- Record document-level state and implementation progress centrally in the source document and, when useful, its existing index. Avoid routinely copying these mutable facts into inbound link labels or summaries; note a limitation at the point of use only when it affects interpretation.
+- Record document-level state and implementation progress only when requested or needed to interpret an agreement; keep them centrally in the source document and, when useful, its existing index. Omit routine wiring, migration tasks, and temporary implementation gaps unless they meet that condition. Avoid copying these mutable facts into inbound link labels or summaries; note a limitation at the point of use only when it affects interpretation.
 - A draft or deprecated record can supply background; it is not the sole definition of an effective contract. State the independently confirmed agreement needed locally. Reclassification alone does not revoke an agreement.
 - Prefer stable document paths or contract sections. Reciprocal navigation is acceptable when each document owns its definitions; do not pass a key definition around a reference cycle.
 - Read only the linked material needed for the task. A cross-reference does not require reading the whole target document or recursively following its links.

@@ -301,3 +301,120 @@ Expected results after clarification:
 - Continue the authorized document update without asking again for permission to save. Use the clarification to distinguish the checked SDK behavior, the confirmed but unimplemented Repository target, and the undecided waiting mechanism.
 - Preserve the Repository/Worker responsibility boundary, language, and useful format. Remove the superseded forwarding-only statement as an effective implementation agreement; do not invent an SDK completion API, waiting strategy, or runtime-success claim.
 - Save and inspect only the requested document. Preserve the SDK fixture, include its source and version context, and report the completed record and actual checks.
+
+## C09: Mixed source material does not dictate the reference structure
+
+Input artifact: `src/components.pyi`. These are project-owned interface declarations, not evidence of completed implementation.
+
+```python
+class SessionStore:
+    async def load(self) -> object: ...
+    async def save(self, credentials: object) -> None: ...
+    async def clear(self) -> None: ...
+
+class SessionManager:
+    """Owns session commits; persistence and publication share a mutation boundary."""
+    async def establish(self, credentials: object, access: object) -> object: ...
+    async def save_refresh(self, token: object, expected_session: object) -> object: ...
+    async def clear(self, expected_session: object) -> object: ...
+    def observe(self) -> object: ...
+
+class TokenProvider:
+    """Owns Access caching and shared updates, not persistent session commits."""
+    async def get_token(self) -> object: ...
+    async def maintain_token(self) -> object: ...
+    async def prepare(self) -> None: ...
+    async def recover_after_rejection(self, used: object) -> object: ...
+    def invalidate(self, used: object) -> None: ...
+
+class Authenticator:
+    async def login(self, material: object) -> object: ...
+    async def logout(self) -> None: ...
+
+class Maintenance:
+    def subscribe(self) -> object: ...
+
+class Factory:
+    async def make(self) -> object: ...
+```
+
+Input artifact: `docs/design/drafts/session-notes.md`.
+
+```markdown
+# 会话讨论与接口阅读笔记
+
+## 已确认的职责与理由
+
+Manager 是会话与持久化凭据的唯一提交者，Provider 持有 Access 缓存并组织共享更新。
+Store 只读写完整记录，Authenticator 协调登录与主动登出，Maintenance 表达持续维护需求。
+Factory 为需要共享这些状态的调用方创建同一组组件。
+
+建立、Refresh 保存和清理共享跨持久化等待的串行提交边界，避免异步挂起期间写入交错。
+建立和更新先持久化再发布，失败保留原状态；清理先结束内存会话再删除记录，
+删除失败不恢复已结束的身份。
+保存核对 Session ID 与原 Refresh ID，防止旧结果覆盖新凭据；清理只核对 Session ID，
+同会话的 Refresh 更新不应阻止登出。
+
+普通取用有可用 Access 时不等待后台更新，主动维护在提前更新窗口等待结果。
+两者共享同一轮更新，取消单个等待者不取消共享操作。
+
+## 逐接口阅读笔记
+
+| 方法 | 阅读记录 |
+| --- | --- |
+| establish | 取得写入权、检查会话、保存、推进版本、发布；成功依赖完整提交 |
+| save_refresh | 比较两个 ID、构造新记录、保存、通知；与建立共用提交规则 |
+| clear | 检查目标、结束内存、通知、删除；同会话更新不阻止清理 |
+| get_token / maintain_token | 分别列出缓存判断、更新安排与等待步骤；复用同一套策略 |
+| recover_after_rejection / invalidate | 按实际使用的快照处理拒绝，不自行重发业务请求 |
+| prepare / subscribe / make | 分别对应预热、维护需求和共享创建 |
+
+## 接入与后续
+
+Factory 尚未接入应用入口，迁移期间还存在临时构造错误；这些进度不改变上述职责。
+协议 v2 的错误字段尚未确定，登录交付确认仅是备选，没有承诺采用。
+TODO：接入异常上报。
+TODO：优化维护调度。
+```
+
+User request:
+
+> 结合接口声明与旧稿，把已确认的职责、契约和设计理由保存为 docs/design/session.md，供没参与讨论的人阅读。保留协议与未定设计，以及异常上报和调度优化 TODO。只新增正式说明，不改旧稿或代码。
+
+Expected results:
+
+- Explain the ownership, shared commit boundary, different persistence/publication orders and their supplied reasons as a coherent design. Preserve both ID checks for saving, the Session-only cleanup condition, and independent waiter cancellation.
+- Organize around design questions rather than reproducing the source's method order, reading-notes table or repeated descriptions. Tables remain valid when shared dimensions make comparison or lookup useful; do not judge by heading names, table counts or whether method identifiers appear.
+- Distinguish ordinary request consumption from active maintenance without restating a complete update algorithm for every entry. Merge repeated commit and update explanations without dropping their conditions.
+- Omit routine wiring progress and temporary construction errors from the formal reference. Do not imply the declarations prove implementation completion. Retain the unresolved protocol, optional delivery confirmation and both explicitly requested TODOs without selecting a new design.
+- Save and inspect only the new reference, leaving the manuscript and interface declarations unchanged. Report actual checks without claiming runtime verification.
+
+## C10: Requested tables and implementation status remain legitimate
+
+Input artifacts: the declarations and manuscript from C09, copied into a fresh workspace, plus `docs/design/session.md`:
+
+```markdown
+# Session service
+
+## Access consumers
+
+| Entry | Waiting policy |
+| --- | --- |
+| get_token | To be clarified. |
+| maintain_token | To be clarified. |
+
+## Integration status
+
+Not recorded.
+```
+
+User request:
+
+> 保留英文和现有表格，只补充两个取用入口的等待区别，并在 Integration status 记录我提供的现状：应用入口尚未使用共享 Factory。其他正文、旧稿和代码不变，不扩大检查范围。
+
+Expected results:
+
+- Update the two table entries using the confirmed waiting distinction from C09. Preserve the requested table and surrounding structure instead of applying a general prose preference or reorganizing the whole reference.
+- Record the user-supplied integration status in the requested location without claiming independent code or runtime verification. Do not suppress it under the rule against unsolicited progress tracking.
+- Do not expand the status into a migration checklist, select the undecided protocol or add unrelated implementation facts.
+- Inspect the saved edit and preserve all other content and artifacts.
