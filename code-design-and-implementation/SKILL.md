@@ -1,6 +1,6 @@
 ---
 name: code-design-and-implementation
-description: Analyze code, discuss alternatives, review implementations, or implement agreed designs involving behavior, responsibilities, interfaces, concurrency, or lifecycle, including comment tasks that require judging these behaviors or contracts. Reviews are static and read-only. Skip syntax-only explanations, cosmetic wording or formatting, spelling checks, routine renames, simple descriptive comments, and mechanical edits.
+description: Analyze code, discuss alternatives, review implementations, or implement agreed designs involving behavior, responsibilities, interfaces, concurrency, or lifecycle, including comment tasks that require judging these behaviors or contracts. Reviews are static and read-only. Standalone unit-test design and authoring use unit-testing when available. Skip syntax-only explanations, cosmetic wording or formatting, spelling checks, routine renames, simple descriptive comments, and mechanical edits.
 ---
 
 # Code design and implementation
@@ -8,6 +8,8 @@ description: Analyze code, discuss alternatives, review implementations, or impl
 Align code analysis, design discussions, reviews, and implementation with the user's intended behavior and confirmed decisions. Surface consequential assumptions before they become implementation policy. Apply the relevant guidance at the depth the task needs; do not impose a planning template or a new approval stage on every increment.
 
 Read-only analysis, design discussion, and code review can be complete tasks: explain the relevant behavior and ownership, assess the concern or alternatives, and identify consequential open questions. They do not require an implementation plan or later edits. Simple symbol lookup does not require this workflow. Honor explicit invocation within the requested scope, including comment tasks that require judging behavior or contracts.
+
+Feature implementation and production-code repair retain responsibility for necessary tests and permitted verification. Use `unit-testing`, when available, as the primary workflow for standalone unit-test design or authoring, or consult it for substantive test-design choices within an implementation. Do not force a separate testing task or TDD sequence. Test-code review keeps the review mode below; execution-only verification does not automatically become test authoring or repair.
 
 In a code review task, use code reading and static reasoning only; do not modify files or run builds, tests, previews, apps, or other runtime verification. Earlier modification or runtime-verification authorization does not carry into a current review task. Ground findings in inspected code and a concrete failure scenario or responsibility or contract mismatch. Explain the impact and recommendation, distinguish actionable defects from optional design preferences, and say when no actionable issue is found. A finding does not itself authorize a fix.
 
