@@ -9,13 +9,13 @@ Write focused tests that detect concrete regressions, explain intended behavior,
 
 ## Choose the task and preserve its boundaries
 
-Use this workflow as the primary skill when the requested deliverable is unit-test design, new tests, or improvements to existing tests. Test-design discussion stays read-only until file edits are authorized.
+Use this workflow for unit-test design, authoring, or improvement. Test-design discussion stays read-only until edits are authorized. Reading production code for this work does not require another workflow.
 
-For feature implementation or production-code repair, keep the code workflow in charge of the task, including necessary tests and verification. Consult this skill when test design needs its guidance; do not force a separate testing task, handoff, or phase for every implementation. Reading production code to write tests does not by itself require an additional code-design workflow.
+For production implementation or repair, keep the code workflow in charge and consult this skill when test authoring is also authorized by the request, still-valid same-task authorization, or project requirements. Production work alone does not authorize test changes. Complete authorized combined work without a separate phase or redundant approval.
 
-Reviewing test code remains a static, read-only code-review task. Prefer `code-design-and-implementation` when available; explicit invocation of this skill still honors that mode, with no edits, temporary files, or runtime verification. If a request combines review with edits or execution, obtain the chosen task mode first unless it is already explicit. A request only to run specified checks is verification: execute within its permissions and report results without automatically writing tests or repairing code.
+Test-code review is static and read-only, including no temporary files or runtime verification; prefer `code-design-and-implementation` when available. Explicit invocation preserves that mode. Resolve a combined review-and-edit or execution request to one task mode unless already explicit. Execution-only verification does not authorize writing tests or repairs.
 
-Independent test authoring authorizes test code and necessary test helpers within the requested scope. It does not independently authorize production-code fixes, interface changes, framework migration, dependency installation, or test-infrastructure redesign. If a useful test needs a production change outside existing authorization, explain the concrete obstacle and proposed change before proceeding with that part; continue independent testing work. Reuse authorization already given.
+Independent test authoring covers tests and necessary test helpers, not production fixes, interface changes, framework migration, dependency installation, infrastructure redesign, or standalone documentation. Selecting a skill does not expand permissions. Explain a concrete out-of-scope obstacle before dependent changes and continue independent authorized work; do not routinely ask to add deliverables.
 
 TDD is optional. Follow the user's or project's chosen development approach. Existing implementations and newly added tests that pass immediately are valid starting points; do not delete, rewrite, or deliberately break production code merely to obtain an initial failing test.
 
@@ -35,7 +35,7 @@ For each case, identify the behavior it protects and a plausible defect that wou
 
 Build expected results independently of the code under test and its helpers. Use explicit values, hand-checked fixtures, or independently justified properties. Do not copy the production algorithm into the assertion or call the same implementation to compute both actual and expected values.
 
-Exercise the real unit through its supported interface and assert the result, externally meaningful state change, or required side effect. A mock configured to return a value and then queried directly is not a test of the consuming unit. Avoid assertions on private structure, incidental call sequences, or source text as substitutes for behavior. Structural checks can serve a separate purpose; report them as such.
+Exercise the real unit through its supported interface and assert the result, externally meaningful state change, or required side effect. Avoid assertions on private structure, incidental call sequences, or source text as substitutes for behavior. Structural checks can serve a separate purpose; report them as such.
 
 Prefer result and state assertions. Assert dependency calls, arguments, counts, or ordering when they represent a necessary contract, such as preventing duplicate sends or redundant work. Verify only the interactions needed to establish that behavior; interaction checks do not prove the real dependency works.
 
@@ -45,7 +45,9 @@ Prefer real, lightweight, deterministic collaborators when practical. Use a fake
 
 Keep each test independent of execution order and other tests' mutable state. Give fixtures clear ownership and cleanup, including tasks, observers, and resources created by the test. Helpers should reveal setup and remove distracting repetition without hiding expected values or reproducing production logic. Do not move test-only lifecycle methods into production types for test convenience.
 
-For asynchronous behavior, control the event or completion that creates the relevant ordering using existing test facilities, gated dependencies, or controllable clocks. Await the result being asserted and settle test-owned work before the test exits, including on failure. Use bounded waits to diagnose a missing event; arbitrary sleeps, repeated retries until green, and globally serializing tests do not establish the required ordering. Distinguish cancelling one waiter, ending shared work, and suppressing late effects when those meanings differ in the contract.
+For asynchronous behavior, explicitly control and await the events or completions that determine the asserted ordering. Use deterministic test facilities and verify the behavior required by the contract rather than relying on timing assumptions.
+
+Keep potentially blocking waits bounded. Arrange contract-compatible cleanup when creating test-owned work so it settles within a bounded time before test exit, including when the test fails or is cancelled.
 
 ## Write readable tests and assess their strength
 
@@ -55,11 +57,11 @@ Before finishing, reason through representative mistakes: a wrong boundary compa
 
 ## Verify within permission and report evidence
 
-Inspect the saved tests and diff against the requested scope. Run only commands permitted by the current task and target project. Writing tests does not override a project rule requiring an explicit request before builds or test execution. When execution is allowed, start with the relevant target or cases and broaden to required or justified checks. Do not impose a full-suite run on every task.
+Inspect saved tests and the diff within scope. Execution requires explicit authorization from the full task context; authoring alone does not grant it. Establish environment and scope from the request, prior decisions, and project guidance or runner configuration. A known command alone is not a default scope. If none is selected or a consequential choice is unresolved, ask before any target or preliminary subset and continue independent authoring. Run agreed checks after changes, reusing authorization for necessary same-task reruns, including after a completion report, unless revoked or superseded by a task-mode change; confirm expansions. Without authorization, report static inspection and tests not run without routinely asking to run them. Preserve project execution restrictions.
 
 Classify failures using the contract and observed evidence: a test mistake, production defect, environment problem, or unresolved requirement. Correct in-scope test mistakes. Report production defects outside authorization and retain a meaningful regression test when appropriate; do not weaken its expected result, silently disable it, or change production behavior merely to make the run green. Do not repair unrelated failures automatically.
 
-Report behaviors covered, relevant files, commands actually run and observed results, and remaining limitations. Distinguish written tests, static inspection, executed tests, and integration assumptions. If execution was prohibited, unavailable, or blocked, say so; a runnable-looking test or planned command is not evidence of a pass.
+Report behaviors covered, relevant files, commands actually run and observed results, and remaining limitations. Claim a command-based check passed only when its output and exit status confirm successful execution. Distinguish written tests, static inspection, executed tests, and integration assumptions; identify prohibited, skipped, unavailable, or blocked checks without claiming a pass.
 
 ## Background sources
 

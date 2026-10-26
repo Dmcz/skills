@@ -22,7 +22,7 @@ Keep a small, cohesive design in one file. Split when distinct responsibilities,
 
 ## Evidence and decision state
 
-Separate observations about existing code from the proposed design. Reference inspected source files or supplied documents for claims that drive the recommendation. Use repository-relative links in saved repository documents where practical; include line numbers only when checked and useful.
+Separate observations about existing code from the proposed design. Reference inspected source files or supplied documents for claims that drive the recommendation. In saved repository documents, make repository-local links relative to the document being edited; include line numbers only when checked and useful.
 
 Avoid invented benchmarks, compatibility guarantees, ownership assignments, dates, or approval status. Place consequential assumptions next to the decisions they affect. An open question should identify the missing information and whether it blocks the proposal, implementation, or a later refinement.
 
