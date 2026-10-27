@@ -9,13 +9,11 @@ Produce a working manuscript that helps engineers discuss a change and decide ho
 
 ## Purpose, placement, and reading role
 
-This workflow develops a design for discussion. Writing a draft does not make its proposals accepted, turn it into a formal reference, or authorize implementation. Preserve accepted agreements as the baseline; identify proposed changes to them explicitly.
+This workflow develops a design for discussion. Writing a draft does not make its proposals accepted, turn it into a formal reference, or authorize implementation. Preserve still-valid accepted agreements as the baseline, including those recorded in drafts; identify proposed changes to them explicitly.
 
 Publishing or maintaining confirmed design documentation is a separate workflow. Select this workflow for a requested manuscript, RFC, or design proposal document, including an inline draft or revision of an existing manuscript. Ordinary code analysis and option discussion without a manuscript request do not require it; discussing goals or constraints alone does not imply a manuscript deliverable. Use the appropriate code workflow for such tasks when available and applicable. Do not ask whether to write a manuscript merely because the discussion involves design. This workflow already includes the code inspection and option analysis needed for its manuscript; those supporting steps do not by themselves require another workflow. Honor an explicit invocation or delivery instruction within its requested scope without manufacturing a manuscript requirement.
 
 When saving a new manuscript without a specified path, use a `drafts/` directory within the project's design-documentation area, for example `docs/design/drafts/`. Explicit destinations and applicable project layout take precedence. Keep an existing file in place unless moving it is authorized. The directory describes the artifact's role, not a deletion policy.
-
-Drafts are not the default reading entry or authoritative contract for unrelated implementation tasks. A draft explicitly associated with an initial implementation or an active change may provide important direction. Its alternatives and unresolved details do not automatically become requirements.
 
 Use code to establish current implementation facts and relevant formal documents to establish accepted concepts, responsibilities, and contracts. Requirements and confirmed design choices establish the intended change. If materials disagree, distinguish an unimplemented target from an outdated description; do not automatically treat either the code or document as correct. Follow the project's own reading rules.
 

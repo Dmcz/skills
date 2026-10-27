@@ -22,9 +22,9 @@ As a selection test, ask: if the internal implementation changed but responsibil
 
 Formal documentation is for looking up effective concepts, responsibilities, contracts, and design rationale. When working on existing implementation, related code establishes actual structure and behavior; relevant formal documents establish the agreements the change must respect. Requirements and confirmed choices establish the intended change. Distinguish an unimplemented target from an outdated description instead of automatically preferring code or prose.
 
-Working manuscripts belong in the project's design-area `drafts/` directory and are read for explicitly associated discussion or implementation work. They are not automatically formal references. Extract the confirmed content when asked to consolidate a manuscript; retain only the unresolved boundaries needed to explain the effective agreement.
+Working manuscripts are not automatically formal references. Extract the confirmed content when asked to consolidate a manuscript; retain only the unresolved boundaries needed to explain the effective agreement.
 
-For a new formal file, use the project's formal-documentation location outside `drafts/`, unless the user specifies another destination. Follow project layout and preserve existing paths. Source comments stay in the requested source file. Do not move, delete, or archive a manuscript or reorganize indexes unless authorized.
+For a new formal file, use the project's formal-documentation location unless the user specifies another destination. Follow project layout and preserve existing paths. Source comments stay in the requested source file. Do not move, delete, or archive a manuscript or reorganize indexes unless authorized.
 
 ## Verify and write at the requested level
 
