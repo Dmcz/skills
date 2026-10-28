@@ -40,6 +40,10 @@ Use these workflows when they are available and the task falls within their scop
 - Use `document-confirmed-design` when the user requests writing or substantively maintaining a formal reference for confirmed design agreements. Do not use it to select unchosen proposals or for routine wording edits.
 - Honor explicit skill invocations within the requested scope without expanding the task to fit a workflow. Selecting or consulting a skill does not authorize additional deliverables.
 
+## Git
+
+- Use Conventional Commits for commit messages. Prefer a single-line message; follow project-specific requirements when they differ.
+
 ## Verification and delivery
 
 - Follow project and task verification boundaries. Test execution needs explicit authorization from the full task context; implementation, repair, or test authoring alone does not grant it. Without authorization, complete static inspection and report tests as not run without routinely asking to run them.
