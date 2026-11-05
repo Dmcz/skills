@@ -10,6 +10,7 @@
 | unit-testing | 以单元测试设计、编写或改进为主要产物，围绕行为契约、独立预期值、依赖替身和确定性异步时序编写有效测试；不强制 TDD。测试编写需有相应授权，可与已授权生产实现同任务完成；独立补测试不自动授权修改生产代码、独立文档或执行测试，运行需用户明确要求并遵循目标项目限制；单纯运行测试不触发编写流程。 | [unit-testing/](unit-testing/) |
 | draft-software-design | 用于明确要求起草或修订的软件设计手稿、RFC 或提案文档，可在聊天中交付；普通代码分析和方案讨论不触发，聊天起草不自动授权保存。 | [draft-software-design/](draft-software-design/) |
 | document-confirmed-design | 编写或维护已确认设计的正式说明，记录概念、数据关系、职责、契约和后续方向，不新增设计决定。 | [document-confirmed-design/](document-confirmed-design/) |
+| document-project-structure | 创建或实质性维护项目结构与代码放置指南，按项目需要说明导航入口、目录职责及放置约定，区分当前结构与已确认的目标。 | [document-project-structure/](document-project-structure/) |
 
 ## Agent 指令
 
